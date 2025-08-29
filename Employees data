@@ -1,0 +1,514 @@
+# CREATE NEW DATABASE as emp_data
+
+create table emp_data(
+emp_id int primary key,  
+first_name varchar(50),
+last_name varchar(50),
+salary decimal(10,2),
+joining_date datetime,
+department varchar(50),
+gender varchar(10),
+job_title varchar(100)
+);
+
+select * from emp_data;
+
+# INSERT SAMPLE DATA INTO TABLE
+
+insert into emp_data (emp_id, first_name, last_name, salary, joining_date, department, gender, job_title)values
+(101, 'Malli', 'G', 50000, '2020-09-20 11:16', 'IT', 'Male', 'Software Engineer'),
+(102, 'Venu', 'S', 55000, '2024-10-05 07:15', 'IT', 'Male', 'Software Engineer'),
+(103, 'Anjali', 'R', 62000, '2024-08-15 09:45', 'HR', 'Female', 'HR Manager'),
+(104, 'Rajesh', 'K', 48000, '2023-07-10 14:10', 'Finance', 'Male', 'Financial Analyst'),
+(105, 'Priya', 'M', 53000, '2024-06-25 18:30', 'IT', 'Female', 'Software Engineer'),
+(106, 'Arjun', 'B', 67000, '2024-09-05 12:25', 'Operations', 'Male', 'Unknown'),
+(107, 'Sneha', 'T', 60000, '2024-05-19 08:20', 'Marketing', 'Female', 'Marketing Executive'),
+(108, 'Vikram', 'P', 58000, '2024-04-30 17:55', 'IT', 'Male', 'Software Engineer'),
+(109, 'Kavita', 'L', 50000, '2023-03-15 11:05', 'HR', 'Female', 'HR Manager'),
+(110, 'Suresh', 'N', 62000, '2024-02-28 15:40', 'Finance', 'Male', 'Financial Analyst'),
+(111, 'Deepak', 'J', 65000, '2022-09-22 16:30', 'Operations', 'Male', 'Unknown'),
+(112, 'Roshni', 'D', 52000, '2022-11-12 10:12', 'IT', 'Female', 'Software Engineer'),
+(113, 'Sameer', 'C', 70000, '2024-10-18 13:45', 'Marketing', 'Male', 'Marketing Executive'),
+(114, 'Pooja', 'V', 56000, '2024-07-07 19:10', 'HR', 'Female', 'HR Manager'),
+(115, 'Harish', 'S', 48000, '2024-06-02 06:35', 'Finance', 'Male', 'Financial Analyst'),
+(116, 'Asha', 'Y', 51000, '2024-05-21 14:22', 'IT', 'Female', 'Software Engineer'),
+(117, 'Kiran', 'Z', 62000, '2021-04-18 18:55', 'Operations', 'Male', 'Unknown'),
+(118, 'Divya', 'M', 58000, '2024-03-29 08:11', 'Marketing', 'Female', 'Marketing Executive'),
+(119, 'Sunil', 'B', 60000, '2024-02-17 12:47', 'HR', 'Male', 'HR Manager'),
+(120, 'Meena', 'A', 49000, '2020-01-05 16:25', 'IT', 'Female', 'Software Engineer');
+
+select * from emp_data;
+
+# Write a query to create a clone of an existing table using Create Command
+create table emp_data_clone as
+select * from emp_data;
+
+# Write a query to get all employee detail from "employee" table
+select * from emp_data;
+
+# Select only top 1 record from employee table
+select * from emp_data limit 1;
+select * 
+from emp_data
+order by Salary desc
+limit 1;
+
+# Select only bottom 1 record from employee table
+select * from emp_data
+order by emp_id desc
+limit 1;
+
+# How to select a random record from a table?
+select *from emp_data
+order by rand()
+limit 1;
+
+# “first_name” in upper case as "first_name_upper"
+select upper(first_name) as first_name_upper
+from emp_data;
+
+# ‘first_name’ in lower case as ‘first_name_lower”
+select lower(first_name) as first_name_lower
+from emp_data;
+
+# Create a new column “full_name” by combining “first_name” & “last_name” with space as a separator
+select concat(first_name, ' ', last_name) as full_name
+from emp_data;
+
+# Add 'Hello ' to first_name and display result
+select concat('Hello ', first_name) as first_name
+from emp_data;
+
+# Whose “first_name” is ‘Malli’
+select *from emp_data
+where first_name = 'Malli';
+
+# Whose “first_name” present in ("Malli","Meena", "Anjali")
+select * from emp_data
+where first_name in ('Malli', 'Meena', 'Anjali');
+
+# Whose “first_name” not present in ("Malli","Meena", "Anjali")
+select * from emp_data
+where first_name not in ('Malli', 'Meena', 'Anjali');
+
+# Whose “first_name” starts with “v”
+select * from emp_data
+where first_name like 'v%';
+
+# Whose “first_name” ends with “i”
+select * from emp_data
+where first_name like '%i';
+
+# Whose “first_name” contains “o”
+select * from emp_data
+where first_name like '%o%';
+
+# Whose "first_name" start with any single character between 'm-v'
+select * from emp_data
+where first_name like 'm-v%';
+
+# Whose "first_name" not start with any single character between 'm-v'
+select * from emp_data
+where first_name not like'm-v%';
+
+# Whose "first_name" start with 'M' and contain 5 letters
+select * from emp_data
+where first_name like 'M____';
+
+# Write a query to get all unique values of"department" from the employee table.
+select distinct department from emp_data;
+
+# Query to check the total records present in a table.
+select count(*) as total_records
+from emp_data;
+
+# Write down the query to print first letter of a Name in Upper Case and all other letter in Lower Case.
+select concat(
+           upper(substring(first_name, 1, 1)),
+           lower(substring(first_name, 2))
+       ) as formatted_name
+from emp_data;
+
+# Write down the query to display all employee name in one cell separated by ',' ex:-"Vikas, nikita, Ashish, Nikhil , anish"(EmployDetail table).
+select group_concat(first_name separator ', ') as all_employee_names
+from emp_data;
+
+# Query to get the below values of "salary" from employee table
+# LOWEST SALARY
+select min(salary) as lowest_salary
+from emp_data;
+
+# HIGHEST SALARY
+select max(salary) as highest_salary
+from emp_data;
+
+# AVERAGE SALARY
+select avg(salary) as average_salary
+from emp_data;
+
+# HIGHEST SALARY-LOWEST SALARY as DIFF_SALARY
+select max(salary)- min(salary) as diff_salary
+from emp_data;
+
+# % of difference between Highest salary and lowest salary. (sample output format: 10.5%)
+select concat(
+        round(((max(salary) - min(salary)) / min(salary)) * 100, 1),
+        '%'
+    ) as diff_percentage
+from emp_data;
+
+
+# Select “first_name” from the employee table after removing white spaces from
+# Right side spaces
+select rtrim(first_name) as trimmed_first_name
+from emp_data;
+
+# Left side spaces
+select ltrim(first_name) as trimmed_first_name
+from emp_data;
+
+# Both right & left side spaces
+select trim(first_name) as trimmed_first_name
+from emp_data;
+
+# Query to check no.of records present in a table where employees having 50k salary
+select count(*) as total_records
+from emp_data
+where salary = 50000;
+
+
+# CASE WHEN THEN END STATEMENT QUERIES
+# Display first_name and gender as M/F.(if male then M, 1. if Female then F)
+select first_name,
+       case 
+           when gender = 'Male' then 'M'
+           when gender = 'Female' then 'F'
+           else 'U'  -- U for Unknown or any other gender value
+       end as gender_short
+from emp_data;
+
+# Display first_name, salary, and a salary category. (If salary is below 50,000, categorize as 'Low'; between 50,000 and 60,000 as 'Medium'; above 60,000 as 'High')
+select first_name,
+       salary,
+       case
+           when salary < 50000 then 'Low'
+           when salary between 50000 and 60000 then 'Medium'
+           when salary > 60000 then 'High'
+       end as salary_category
+from emp_data;
+
+# Display first_name, department, and a department classification. (If department is'IT', display 'Technical'; if 'HR', display 'Human Resources'; if 'Finance', display'Accounting'; otherwise, display 'Other') (If department is'IT', display 'Technical'; if 'HR', display 'Human Resources'; if 'Finance', display'Accounting'; otherwise, display 'Other')
+select first_name,
+       department,
+       case
+           when department = 'IT' then 'Technical'
+           when department = 'HR' then 'Human Resources'
+           when department = 'Finance' then 'Accounting'
+           else 'Other'
+       end as department_classification
+from emp_data;
+
+# Display first_name, salary, and eligibility for a salary raise. (If salary is less than 50,000, mark as 'Eligible for Raise'; otherwise, 'Not Eligible')
+select first_name,
+       salary,
+       case
+           when salary < 50000 then 'Eligible for Raise'
+           else 'Not Eligible'
+       end as raise_eligibility
+from emp_data;
+
+# Display first_name, joining_date, and employment status. (If joining date is before
+'2022-01-01', mark as 'Experienced'; otherwise, 'New Hire')
+select first_name,
+       joining_date,
+       case
+           when joining_date < '2022-01-01' then 'Experienced'
+           else 'New Hire'
+       end as employment_status
+from emp_data;
+
+# Display first_name, salary, and bonus amount. (If salary is above 60,000, add10%
+bonus; if between 50,000 and 60,000, add 7%; otherwise, 5%)
+select first_name,
+       salary,
+       case
+           when salary > 60000 then salary * 0.10
+           when salary between 50000 and 60000 then salary * 0.07
+           else salary * 0.05
+       end as bonus_amount
+from emp_data;
+
+# Display first_name, salary, and seniority level.
+select first_name,
+       salary,
+       case
+           when salary > 60000 then 'Senior'
+           when salary between 50000 and 60000 then 'Mid-level'
+           else 'Junior'
+       end as seniority_level
+from emp_data;
+
+# (If salary is greater than 60,000, classify as 'Senior'; between 50,000 and 60,000 as
+'Mid-Level'; below 50,000 as 'Junior')
+select first_name,
+       salary,
+      case
+           when salary > 60000 then'Senior'
+           when salary between 50000 and 60000 then 'Mid-Level'
+           else 'Junior'
+       end as seniority_level
+from emp_data;
+
+# Display first_name, salary, and seniority level.
+select first_name,
+       salary,
+      case
+           when salary > 60000 then 'Senior'
+           when salary between 50000 and 60000 then 'Mid-Level'
+           else 'Junior'
+       end as seniority_level
+from emp_data;
+
+# (If salary is greater than 60,000, classify as 'Senior'; between 50,000 and 60,000 as'Mid-Level'; below 50,000 as 'Junior')
+select first_name,
+       salary,
+       case
+          when salary > 60000 then 'Senior'
+           when salary between 50000 and 60000 then 'Mid-Level'
+           else 'Junior'
+      end as seniority_level
+from emp_data;
+
+# Display first_name, department, and job level for IT employees. (If department is 'IT'
+and salary is greater than 55,000, mark as 'Senior IT Employee'; otherwise, 'Other').
+select first_name,
+       department,
+       case
+          when department = 'IT' and salary > 55000 then 'Senior IT Employee'
+          else 'Other'
+       end as job_level
+from emp_data;
+
+# Display first_name, joining_date, and recent joiner status. (If an employee joined
+after '2024-01-01', label as 'Recent Joiner'; otherwise, 'Long-Term Employee')
+select first_name,
+       joining_date,
+       case
+          when joining_date > '2024-01-01' then 'Recent Joiner'
+          else 'Long-Term Employee'
+       end as recent_joiner_status
+from emp_data;
+
+# Display first_name, joining_date, and leave entitlement. (If joined before '2021-01-01',
+ assign '10 Days Leave'; between '2021-01-01' and '2023-01-01', assign '20 Days Leave';
+ otherwise, '25 Days Leave')
+select first_name,
+       joining_date,
+      case
+           when joining_date < '2021-01-01' then '10 Days Leave'
+          when joining_date between '2021-01-01' and '2023-01-01' then '20 Days Leave'
+          else '25 Days Leave'
+      end as leave_entitlement
+from emp_data;
+
+# Display first_name, salary, department, and promotion eligibility. (If salary is above 60,000 and department is 'IT', 
+mark as 'Promotion Eligible'; otherwise, 'Not Eligible')
+select first_name,
+       salary,
+       department,
+       case
+           when salary > 60000 and department = 'IT' then 'Promotion Eligible'
+           else 'Not Eligible'
+     end as promotion_eligibility
+from emp_data;
+
+# Display first_name, salary, and overtime pay eligibility. (If salary is below 50,000,
+mark as 'Eligible for Overtime Pay'; otherwise, 'Not Eligible')
+select first_name,
+       salary,
+       case
+           when salary < 50000 then 'Eligible for Overtime Pay'
+          else 'Not Eligible'
+       end as overtime_pay_eligibility
+from emp_data;
+
+# Display first_name, department, salary, and job title. (If department is 'HR' and salary
+is above 60,000, mark as 'HR Executive'; if department is 'Finance' and salary is above
+55,000, mark as 'Finance Manager'; otherwise, 'Regular Employee')
+select first_name,
+       department,
+       salary,
+       case
+           when department = 'HR' and salary > 60000 then 'HR Executive'
+           when department = 'Finance' and salary > 55000 then 'Finance Manager'
+           else 'Regular Employee'
+      end as job_title
+from emp_data;
+
+# Display first_name, salary, and salary comparison to the company average. (If salary is
+above the company’s average salary, mark as 'Above Average'; otherwise, 'Below
+Average')
+select first_name,
+       salary,
+       case
+           when salary > (select avg(salary) from employee) then 'Above Average'
+           else 'Below Average'
+       end as salary_comparison
+from emp_data;
+
+# GROUP BY
+Write the query to get the department and department wise total(sum) salary,
+display it in ascending and descending order according to salary.
+
+# ASCENDING ORDER BY TOTAL SALARY
+select department, 
+       sum(salary) as total_salary
+from emp_data
+group by department
+order by total_salary asc;
+
+# DESCENDING ORDER BY TOTAL SALARY
+select department, 
+       sum(salary) as total_salary
+from emp_data
+group by department
+order by total_salary desc;
+
+# Write down the query to fetch Project name assign to more 2. than one Employee
+select project_name, 
+       count(*) as employee_count
+from emp_data
+group by project_name
+having count(*) > 1;
+
+# Write the query to get the department, total no. of departments, total(sum) salary with respect to department from "employee table" table.
+select 
+    department,
+    count(department) as total_employees,
+    sum(salary) as total_salary
+from emp_data
+group by department;
+
+# Get the department-wise salary details from the "employee table" table:
+# What is the average salary? (Order by salary ascending)
+select 
+    department,
+    avg(salary) as avg_salary
+from emp_data
+group by department
+order by avg_salary asc;
+
+# What is the maximum salary? (Order by salary ascending)
+select 
+    department,
+    max(salary) as max_salary
+from emp_data
+group by department
+order by max_salary asc;
+
+# Display department-wise employee count and categorize based on size. (If a department has more than 5 employees, label it as 'Large'; between 3 and 5 as 'Medium'; otherwise,'Small')
+select 
+    department,
+   count(*) as employee_count,
+    case
+        when count(*) > 5 then 'Large'
+        when count(*) between 3 and 5 then 'Medium'
+        else 'Small'
+   end as department_size
+from emp_data
+group by department;
+
+# Display department-wise average salary and classify pay levels. (If the average salary in a
+department is above 60,000, label it as 'High Pay'; between 50,000 and 60,000
+as 'Medium Pay'; otherwise, 'Low Pay').
+select 
+    department,
+    avg(salary) as avg_salary,
+    case
+        when avg(salary) > 60000 then 'High Pay'
+        when avg(salary) between 50000 and 60000 then'Medium Pay'
+       else 'Low Pay'
+    end as pay_level
+from emp_data
+group by department;
+
+# Display department, gender, and count of employees in each category. (Group by
+department and gender, showing total employees in each combination)
+select 
+    department,
+    gender,
+    count(*) as total_employees
+from emp_data
+group by department, gender;
+
+# Display the number of employees who joined each year and categorize hiring trends. (If a
+year had more than 5 hires, mark as 'High Hiring'; 3 to 5 as 'Moderate Hiring'; otherwise,
+'Low Hiring')
+select 
+    year(joining_date) as join_year,
+    count(*) as total_hires,
+    case
+        when count(*) > 5 then 'High Hiring'
+        when count(*) between 3 and 5 then 'Moderate Hiring'
+        else 'Low Hiring'
+    end as hiring_trend
+from emp_data
+group by year(joining_date)
+order by join_year;
+
+# Display department-wise highest salary and classify senior roles. (If the highest salary in a
+department is above 70,000, label as 'Senior Leadership'; otherwise, 'Mid-Level')
+select
+    department,
+    max(salary) as highest_salary,
+    case
+        when max(salary) > 70000 then 'Senior Leadership'
+        else 'Mid-Level'
+   end as role_classification
+from emp_data
+group by department
+order by highest_salary desc;
+
+# Display department-wise count of employees earning more than 60,000. (Group
+employees by department and count those earning above 60,000, labeling departments
+with more than 2 such employees as 'High-Paying Team')
+select
+    department,
+    count(*) as high_salary_count,
+    case
+        when count(*) > 2 then 'High-Paying Team'
+        else 'Regular Team'
+    end as team_type
+from emp_data
+where salary > 60000
+group by department;
+
+# Query to extract the below things from joining_date column. (Year, Month, Day, Current Date)
+select 
+first_name,
+year(joined_date) as join_year,
+month(joined_date) as join_month,
+day(joined_date) as join_day,
+curdate() as cur_date
+from employee_data;
+
+# Create two new columns that calculate the difference between joining_date and the current date. One column should show the difference in months, and the other should show the difference in days
+select
+ first_name,
+ joined_date,
+ timestampdiff(month, joined_date, curdate()) as diff_in_months,
+ datediff(curdate(), joined_date) as diff_in_days
+ from employee_data;
+
+ # Get all employee details from the employee table whose joining 3. year is 2020
+ select * from employee_data
+ where year(joined_date) = 2020;
+
+  # Get all employee details from the employee table whose joining month is Feb 
+ select * from employee_data
+ where month(joined_date) = 2;
+
+ # Get all employee details from employee table whose joining date between "2021-01-01" and "2021-12-01"
+ select * from employee_data
+ where joined_date between '2021-01-01' and '2021-12-01';
+ 
